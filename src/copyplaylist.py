@@ -1,6 +1,8 @@
 from plexapi.myplex import MyPlexAccount
 from plexapi.exceptions import NotFound, BadRequest
 
+from getpass import getpass
+
 import re
 
 
@@ -92,7 +94,7 @@ def find_matching_item(source_item, target_server):
 #
 def main():
     user = input("Enter username: ")
-    password = input("Enter Password: ")
+    password = getpass(prompt="Enter Password: ")
     account = MyPlexAccount(user, password)
 
     available_resources = account.resources()
@@ -152,6 +154,7 @@ def main():
         target_server.createPlaylist(target_playlist_title, items=playlist_items)
     else:
         target_playlist.addItems(playlist_items)
+    account.signout()
 
 
 #
